@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  database-checkout:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "admin"
+      MYSQL_ROOT_USER: "root"
+      MYSQL_DATABASE: "checkout"
+    container_name: db-checkout
+    ports:
+      - 3306:3306
+    volumes:
+      - /home/hilton/Docker/Volumes/MySql:/var/lib/mysql
+    restart: always

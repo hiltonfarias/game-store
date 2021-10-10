@@ -4,38 +4,46 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+//@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @Entity
 public class Checkout extends Base {
 
     private static final long serialVersionUID = 1L;
 
-    private final BigDecimal MAX_FEE = new BigDecimal(250.0);
+    private final BigDecimal MAX_FEE = new BigDecimal("250.0");
 
     private BigDecimal fee;
 
-    private BigDecimal total;
+    private BigDecimal subTotal;
 
-    private List<Product> products;
+    @OneToMany(cascade = { CascadeType.MERGE})
+    private List<Product> products = new ArrayList<>();
 
-    public Checkout(BigDecimal amountFee, BigDecimal subTotal, Product products) {
-        if ( subTotal.equals(this.MAX_FEE) ) {
-            this.fee = new BigDecimal(0);
-            this.total = subTotal;
+    public Checkout(Order order) {
+        if ( order.getSubTotal().compareTo(this.MAX_FEE) >= 0 ) {
+            this.fee = BigDecimal.ZERO;
         } else {
-            this.fee = new BigDecimal(String.valueOf(amountFee));
-            this.total = new BigDecimal(String.valueOf(subTotal)).add(this.fee);
+            this.fee = order.getAmountFee();
         }
-        this.products.add(products);
+        this.subTotal = order.getSubTotal();
+        this.products.addAll(order.getProducts());
     }
 }

@@ -4,37 +4,47 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
+//@EqualsAndHashCode(callSuper = false)
 @Entity
 public class Order extends Base {
 
     private static final long serialVersionUID = 1L;
 
-    private BigDecimal amountFee;
+    private static final BigDecimal FEE = new BigDecimal(10);
 
-    private BigDecimal subTotal;
+    private BigDecimal amountFee = BigDecimal.ZERO;
 
-    private List<Product> products;
+    private BigDecimal subTotal = BigDecimal.ZERO;
+
+    @OneToMany(cascade = { CascadeType.MERGE})
+    private List<Product> products = new ArrayList<>();
 
     public void addItem(Product product) {
-        this.amountFee = new BigDecimal(10.0).add(amountFee);
-        this.subTotal = new BigDecimal(String.valueOf(this.subTotal)).add(product.price);
+        this.amountFee = this.amountFee.add(this.FEE);
+        this.subTotal = this.subTotal.add(product.price);
         this.products.add(product);
     }
 
     public void removeItem(Product product) {
-        this.amountFee = new BigDecimal(String.valueOf(amountFee)).subtract(new BigDecimal(10));
-        this.subTotal = new BigDecimal(String.valueOf(this.subTotal)).subtract(product.price);
+        this.amountFee = this.amountFee.subtract(this.FEE);
+        this.subTotal = this.subTotal.subtract(product.price);
         this.products.remove(product.id);
     }
 }

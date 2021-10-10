@@ -1,0 +1,37 @@
+public class Checkout extends Base {
+
+    private static final long serialVersionUID = 1L;
+
+    private final BigDecimal MAX_FEE = new BigDecimal("250.0");
+
+    private BigDecimal fee;
+
+    private BigDecimal total;
+
+    private List<Product> products = new ArrayList<>();
+
+    public Checkout(BigDecimal amountFee, BigDecimal subTotal, Product products) {
+        if (subTotal.compareTo(MAX_FEE) >= 0) {
+            this.fee = BigDecimal.ZERO;
+        } else {
+            this.fee = amountFee;
+
+   
+Wagner Farias
+10/10/2021
+public class Order extends Base {
+
+    private static final long serialVersionUID = 1L;
+
+    private static final BigDecimal FEE = new BigDecimal("10");
+
+    private BigDecimal amountFee = BigDecimal.ZERO;
+
+    private BigDecimal subTotal = BigDecimal.ZERO;
+
+    private List<Product> products = new ArrayList<>();
+
+    public void addItem(Product product) {
+        this.amountFee = this.amountFee.add(FEE);
+        this.subTotal = this.subTotal.add(product.price);
+        this.products.add(product

@@ -3,7 +3,6 @@ spring:
     url: jdbc:mysql://localhost:3306/checkout?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true #jdbc:mysql://172.23.0.2:3306/checkout
     usarname: hilton
     password:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
     driverClassName: com.mysql.cj.jdbc.Driver
     hikari:
       connection-test-query: select 1

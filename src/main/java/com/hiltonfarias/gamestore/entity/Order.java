@@ -37,13 +37,13 @@ public class Order extends Base {
     private List<Product> products = new ArrayList<>();
 
     public void addItem(Product product) {
-        this.amountFee = this.amountFee.add(this.FEE);
+        this.amountFee = this.amountFee.add(FEE);
         this.subTotal = this.subTotal.add(product.price);
         this.products.add(product);
     }
 
     public void removeItem(Product product) {
-        this.amountFee = this.amountFee.subtract(this.FEE);
+        this.amountFee = this.amountFee.subtract(FEE);
         this.subTotal = this.subTotal.subtract(product.price);
         this.products.remove(product.id);
     }

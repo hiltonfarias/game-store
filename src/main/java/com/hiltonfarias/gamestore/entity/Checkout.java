@@ -21,8 +21,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 //@EqualsAndHashCode(callSuper = false)
-@Getter
-@Setter
+//@Getter
+//@Setter
 @Entity
 public class Checkout extends Base {
 

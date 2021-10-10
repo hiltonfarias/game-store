@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
 @Data
@@ -15,9 +17,11 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
-public class Product extends Base {
+public class Product {
 
-    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue
+    public Long id;
 
     public String name;
 

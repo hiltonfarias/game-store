@@ -10,10 +10,13 @@ import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -23,9 +26,11 @@ import java.util.List;
 @Setter
 //@EqualsAndHashCode(callSuper = false)
 @Entity
-public class Order extends Base {
+public class Order {
 
-    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue
+    public Long id;
 
     private static final BigDecimal FEE = new BigDecimal(10);
 
@@ -33,7 +38,7 @@ public class Order extends Base {
 
     private BigDecimal subTotal = BigDecimal.ZERO;
 
-    @OneToMany(cascade = { CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.MERGE})
     private List<Product> products = new ArrayList<>();
 
     public void addItem(Product product) {
@@ -45,6 +50,6 @@ public class Order extends Base {
     public void removeItem(Product product) {
         this.amountFee = this.amountFee.subtract(FEE);
         this.subTotal = this.subTotal.subtract(product.price);
-        this.products.remove(product.id);
+        this.products.remove(product);
     }
 }

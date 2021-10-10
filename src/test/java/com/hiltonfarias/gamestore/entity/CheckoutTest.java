@@ -14,7 +14,7 @@ class CheckoutTest {
     @DisplayName("Testa se uma compra com valor inferior a 250 é cobrada frete")
     public void shouldContainFee() {
 
-        Product product = new Product("P1", new BigDecimal("100.0"), (short) 1, "test");
+        Product product = new Product(1L,"P1", new BigDecimal("100.0"), (short) 1, "test");
         Order order = new Order();
         order.addItem(product);
 
@@ -26,7 +26,7 @@ class CheckoutTest {
     @DisplayName("Testa se uma compra não é cobrada frete")
     public void shouldNotContainFee() {
 
-        Product product = new Product("P1", new BigDecimal("251.0"), (short) 1, "test");
+        Product product = new Product(1L, "P1", new BigDecimal("251.0"), (short) 1, "test");
         Order order = new Order();
         order.addItem(product);
 
@@ -39,8 +39,8 @@ class CheckoutTest {
     @DisplayName("")
     public void shouldCalculateTotal() {
 
-        Product product = new Product("P1", new BigDecimal("200.0"), (short) 1, "test");
-        Product product2 = new Product("P2", new BigDecimal("20.0"), (short) 1, "test");
+        Product product = new Product(1L,"P1", new BigDecimal("200.0"), (short) 1, "test");
+        Product product2 = new Product(2L,"P2", new BigDecimal("20.0"), (short) 1, "test");
         Order order = new Order();
         order.addItem(product);
         order.addItem(product2);
@@ -54,8 +54,8 @@ class CheckoutTest {
     @Test
     public void shouldCalculateSubTotal() {
 
-        Product product = new Product("P1", new BigDecimal("200.0"), (short) 1, "test");
-        Product product2 = new Product("P2", new BigDecimal("20.0"), (short) 1, "test");
+        Product product = new Product(1L,"P1", new BigDecimal("200.0"), (short) 1, "test");
+        Product product2 = new Product(2L,"P2", new BigDecimal("20.0"), (short) 1, "test");
         Order order = new Order();
         order.addItem(product);
         order.addItem(product2);

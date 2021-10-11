@@ -12,6 +12,7 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,9 @@ public class Checkout extends Base {
 
     @OneToMany(cascade = { CascadeType.MERGE})
     private List<Product> products = new ArrayList<>();
+
+    @OneToOne
+    private Order order;
 
     public Checkout(Order order) {
         if ( order.getSubTotal().compareTo(this.MAX_FEE) >= 0 ) {

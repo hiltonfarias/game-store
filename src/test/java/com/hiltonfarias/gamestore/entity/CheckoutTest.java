@@ -36,7 +36,7 @@ class CheckoutTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Testa Calculo do valor total")
     public void shouldCalculateTotal() {
 
         Product product = new Product(1L,"P1", new BigDecimal("200.0"), (short) 1, "test");
@@ -52,6 +52,7 @@ class CheckoutTest {
     }
 
     @Test
+    @DisplayName("Testa Calculo do subtotal")
     public void shouldCalculateSubTotal() {
 
         Product product = new Product(1L,"P1", new BigDecimal("200.0"), (short) 1, "test");
